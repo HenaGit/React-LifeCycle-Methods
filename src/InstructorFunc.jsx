@@ -3,7 +3,7 @@ import { useEffect } from "react";
 const InstructorFunc = (props) => {
   useEffect(() => {
     return () => {
-      console.log("Instructor - UNMOUNTED");
+      //console.log("Instructor - UNMOUNTED");
     };
   }, []);
 

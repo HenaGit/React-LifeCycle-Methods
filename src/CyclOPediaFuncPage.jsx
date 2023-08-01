@@ -1,4 +1,4 @@
-import React, {useEffect, useState } from "react";
+import React, {useEffect,useRef, useState } from "react";
 import Instructor from "./InstructorFunc";
 import { getRandomUser } from "./Utility/api";
 
@@ -11,6 +11,8 @@ const CyclOPediaFuncPage = () => {
       hideInstructor: false,
     };
   });
+  //const [totalRender, setTotalRender] = useState(0);
+  const totalRender = useRef(0);
   const [inputName, setInputName] = useState(() => {
     return "";
   });
@@ -18,7 +20,10 @@ const CyclOPediaFuncPage = () => {
     return "";
   });
   useEffect(() => {
-    console.log("This will be called on EVERY Render");
+    //console.log("This will be called on EVERY Render");
+    //setTotalRender((prevState) => prevState + 1);
+    totalRender.current = totalRender.current + 1;
+    console.log("render" + totalRender.current);
   });
 
   useEffect(() => {
@@ -63,15 +68,15 @@ const CyclOPediaFuncPage = () => {
     }
   }, [state.studentCount]);
   useEffect(() => {
-    console.log(
+   /*  console.log(
       "This will be called on whenever value of hideInstructor changes"
-    );
+    ); */
   }, [inputFeedback, inputName]);
 
   useEffect(() => {
-    console.log("This will be called on Initial/first Render/Mount");
+    //console.log("This will be called on Initial/first Render/Mount");
     return () => {
-      console.log("This will be called on when component will be UNMOUNTED");
+      //console.log("This will be called on when component will be UNMOUNTED");
     };
   }, []);
   const handleAddStudent = () => {
@@ -115,7 +120,7 @@ const CyclOPediaFuncPage = () => {
           <Instructor instructor={state.instructor} />
         ) : null}
       </div>
-
+      <div className="p-3">Total Render : {totalRender.current}</div>
       <div className="p-3">
         <span className="h4 text-success">Feedback</span>
         <br />
