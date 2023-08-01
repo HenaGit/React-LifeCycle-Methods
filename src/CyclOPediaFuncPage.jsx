@@ -22,8 +22,7 @@ const CyclOPediaFuncPage = () => {
   });
 
   useEffect(() => {
-    console.log("This will be called on Initial/first Render/Mount");
-    const getUser = async () => {
+      const getUser = async () => {
       const response = await getRandomUser();
       setState((prevState) => {
         return {
@@ -36,11 +35,33 @@ const CyclOPediaFuncPage = () => {
         };
       });
     };
-    if (state.hideInstructor) {
+    if (!state.hideInstructor) {
       getUser();
     }
   }, [state.hideInstructor]);
-
+  useEffect(() => {
+    const getUser = async () => {
+      const response = await getRandomUser();
+      setState((prevState) => {
+        return {
+          ...prevState,
+          studentList: [
+            ...prevState.studentList,
+            {
+              name: response.data.first_name + " " + response.data.last_name,
+            },
+          ],
+        };
+      });
+    };
+    if (state.studentList.length < state.studentCount) {
+      getUser();
+    } else if (state.studentList.length > state.studentCount) {
+      setState((prevState) => {
+        return { ...prevState, studentList: [] };
+      });
+    }
+  }, [state.studentCount]);
   useEffect(() => {
     console.log(
       "This will be called on whenever value of hideInstructor changes"
