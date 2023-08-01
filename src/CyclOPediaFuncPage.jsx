@@ -1,5 +1,5 @@
 import React, {useEffect, useState } from "react";
-import Instructor from "./Instructor";
+import Instructor from "./InstructorFunc";
 import { getRandomUser } from "./Utility/api";
 
 const CyclOPediaFuncPage = () => {
@@ -36,8 +36,10 @@ const CyclOPediaFuncPage = () => {
         };
       });
     };
-    getUser();
-  }, []);
+    if (state.hideInstructor) {
+      getUser();
+    }
+  }, [state.hideInstructor]);
 
   useEffect(() => {
     console.log(
