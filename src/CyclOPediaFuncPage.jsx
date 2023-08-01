@@ -13,6 +13,7 @@ const CyclOPediaFuncPage = () => {
   });
   //const [totalRender, setTotalRender] = useState(0);
   const totalRender = useRef(0);
+  const prevStudentCount = useRef(0);
   const [inputName, setInputName] = useState(() => {
     return "";
   });
@@ -59,13 +60,20 @@ const CyclOPediaFuncPage = () => {
         };
       });
     };
-    if (state.studentList.length < state.studentCount) {
+    if (prevStudentCount.current < state.studentCount) {
       getUser();
-    } else if (state.studentList.length > state.studentCount) {
+    } else if (prevStudentCount.current > state.studentCount) {
       setState((prevState) => {
         return { ...prevState, studentList: [] };
       });
     }
+  }, [state.studentCount]);
+  useEffect(() => {
+    console.log("Prev count" + prevStudentCount.current);
+    console.log("Current Count" + state.studentCount);
+    prevStudentCount.current = state.studentCount;
+    console.log("Prev count" + prevStudentCount.current);
+    console.log("Current Count" + state.studentCount);
   }, [state.studentCount]);
   useEffect(() => {
    /*  console.log(
