@@ -14,6 +14,7 @@ const CyclOPediaFuncPage = () => {
   //const [totalRender, setTotalRender] = useState(0);
   const totalRender = useRef(0);
   const prevStudentCount = useRef(0);
+  const feedbackInputRef = useRef(null);
   const [inputName, setInputName] = useState(() => {
     return "";
   });
@@ -82,6 +83,7 @@ const CyclOPediaFuncPage = () => {
   }, [inputFeedback, inputName]);
 
   useEffect(() => {
+    feedbackInputRef.current.focus();
     //console.log("This will be called on Initial/first Render/Mount");
     return () => {
       //console.log("This will be called on when component will be UNMOUNTED");
@@ -144,6 +146,7 @@ const CyclOPediaFuncPage = () => {
         <br />
         <textarea
           value={inputFeedback}
+          ref={feedbackInputRef}
           onChange={(e) => {
             setInputFeedback(e.target.value);
           }}
